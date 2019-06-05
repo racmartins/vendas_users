@@ -19,6 +19,7 @@ class CreateTransactions extends Migration
 
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

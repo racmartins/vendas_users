@@ -2,13 +2,14 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes;
 
     const UTILIZADOR_VERIFICADO = '1';
     const UTILIZADOR_NAO_VERIFICADO = '0';
@@ -17,7 +18,7 @@ class User extends Authenticatable
     const UTILIZADOR_REGULAR = 'false';
 
     protected $table='users';
-
+    protected $dates=['deleted_at'];
     /**
      * The attributes that are mass assignable.
      *
@@ -42,7 +43,6 @@ class User extends Authenticatable
         'remember_token',
         'verification_token',
     ];
-
     /**
      * The attributes that should be cast to native types.
      *
@@ -51,6 +51,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function setNameAttribute($valor){
+        $this->attributes['name'] = strtolower($valor);
+    }
+    public function getNameAttribute($valor){
+       return ucwords($valor);
+    }
+    public function setEmailAttribute($valor){
+        $this->attributes['email'] = strtolower($valor);
+    }
+    /*public getEmailAttribute($valor){
+       return ucfirst($valor);
+    }*/
 
     public function utilizador_Verificado(){
         return $this->verified == User::UTILIZADOR_VERIFICADO;

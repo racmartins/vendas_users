@@ -2,17 +2,20 @@
 
 namespace App;
 
+use App\Category;
 use App\Seller;
 use App\Transaction;
-use App\Category;
-
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
+    use SoftDeletes;
+
     const PRODUTO_DISPONIVEL='disponivel';
     const PRODUTO_NAO_DISPONIVEL = 'não disponível';
 
+    protected $dates=['deleted_at'];
     protected $fillable = [
         'name',
         'description',
