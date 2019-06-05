@@ -24,6 +24,7 @@ class Product extends Model
         'image',
         'seller_id',
     ];
+    protected $hidden=['pivot']; //já que implicitamente gera este atributo
 
     public function esta_Disponivel(){
         return $this->status == Product::PRODUTO_DISPONIVEL;

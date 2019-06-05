@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers\Category;
 
 use App\Category;
@@ -17,7 +16,7 @@ class CategoryProductController extends ApiController
     public function index(Category $category)
     {
         $products = $category->products;
-        dd($products);
-        //return $this->showAll($products);
+        //dd($products);
+        return $this->showAll($products);
     }
 }
